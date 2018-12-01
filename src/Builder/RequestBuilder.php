@@ -2,6 +2,8 @@
 
 namespace Jschubert\Igdb\Builder;
 
+use GuzzleHttp\Exception\ConnectException;
+use GuzzleHttp\Exception\RequestException;
 use Jschubert\Igdb\Response\Response;
 use GuzzleHttp\Client;
 use Jschubert\Igdb\Builder\SearchBuilder;
@@ -49,16 +51,20 @@ class RequestBuilder
      */
     private function get(SearchBuilder $searchBuilder): ResponseInterface
     {
-        $response = $this->httpClient->request(
-            self::REQUEST_METHOD,
-            $searchBuilder->getUrl(),
-            [
-                'headers' => [
-                    'user-key' => $searchBuilder->getApiKey(),
-                    'Accept' => 'application/json'
+        try {
+            $response = $this->httpClient->request(
+                self::REQUEST_METHOD,
+                $searchBuilder->getUrl(),
+                [
+                    'headers' => [
+                        'user-key' => $searchBuilder->getApiKey(),
+                        'Accept' => 'application/json'
+                    ]
                 ]
-            ]
-        );
+            );
+        } catch (ConnectException $connectException){
+        } catch (RequestException $requestException){
+        }
 
         return $response;
     }
