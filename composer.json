@@ -1,0 +1,21 @@
+{
+    "name": "jschubert/igdb",
+    "description": "PHP api wrapper for igdb.",
+    "keywords": ["gaming", "igdb", "api", "jschubert"],
+    "license": "MIT",
+    "minimum-stability": "dev",
+    "authors": [
+        {
+            "name": "Janis Schubert",
+            "email": "jschubert.dev@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Jschubert\\Igdb\\": "src/"
+        }
+    },
+    "require": {
+        "php": ">=7.0.0"
+    }
+}
