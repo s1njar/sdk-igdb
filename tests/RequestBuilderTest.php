@@ -1,9 +1,4 @@
 <?php
-/**
- * @copyright Copyright (c) netz98 GmbH (http://www.netz98.de)
- *
- * @see PROJECT_LICENSE.txt
- */
 
 namespace Tests;
 
@@ -14,13 +9,17 @@ use PHPUnit\Framework\TestCase;
 use PHPUnit\Framework\MockObject\MockObject;
 use Psr\Http\Message\ResponseInterface;
 
+/**
+ * Class RequestBuilderTest
+ * @package Tests
+ */
 class RequestBuilderTest extends TestCase
 {
     /** @var RequestBuilder|MockObject */
     private $requestBuilderMock;
     /** @var Client|MockObject */
     private $clientMock;
-    /** @var SearchBuilder|MockObject */
+    /** @var SearchBuilderTest|MockObject */
     private $searchBuilderMock;
     /** @var ResponseInterface|MockObject */
     private $responseInterface;
@@ -37,6 +36,7 @@ class RequestBuilderTest extends TestCase
             ->expects($this->at(0))
             ->method('getUrl')
             ->willReturn($url);
+
         $this->searchBuilderMock
             ->expects($this->at(1))
             ->method('getApiKey')
@@ -61,6 +61,9 @@ class RequestBuilderTest extends TestCase
         $this->assertInstanceOf(ResponseInterface::class, $result);
     }
 
+    /**
+     *
+     */
     protected function setUp()
     {
         parent::setUp();
@@ -70,6 +73,9 @@ class RequestBuilderTest extends TestCase
         $this->responseInterface = $this->createMock(ResponseInterface::class);
     }
 
+    /**
+     * @return \Jschubert\Igdb\Builder\RequestBuilder
+     */
     public function getSubject(): RequestBuilder
     {
         return new RequestBuilder();

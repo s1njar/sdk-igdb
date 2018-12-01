@@ -42,10 +42,10 @@ class SearchBuilder
      * @return Response
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function search():Response
+    public function search(): Response
     {
-        $baseUrl = rtrim($this->url, '/') . '/' . $this->endpoint . '/';
-        $this->url = $baseUrl . (strpos($baseUrl, '?') === false ? '?' : '') . http_build_query($this->parameters);
+        $baseUrl = rtrim($this->getUrl(), '/') . '/' . $this->getEndpoint() . '/';
+        $this->url = $baseUrl . (strpos($baseUrl, '?') === false ? '?' : '') . http_build_query($this->getParameters());
 
         return $this->requestBuilder->build($this);
     }
@@ -55,9 +55,9 @@ class SearchBuilder
      * @return Response
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function searchById(string $id):Response
+    public function searchById(string $id): Response
     {
-        $this->url = rtrim($this->url, '/').'/'.$this->endpoint.'/'.$id;
+        $this->url = rtrim($this->getUrl(), '/').'/'.$this->getEndpoint().'/'.$id;
 
         return $this->requestBuilder->build($this);
     }
@@ -67,9 +67,9 @@ class SearchBuilder
      * @return Response
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function searchByScroll(string $nextPage):Response
+    public function searchByScroll(string $nextPage): Response
     {
-        $this->url .= $nextPage;
+        $this->url = $this->getUrl() . $nextPage;
 
         return $this->requestBuilder->build($this);
     }
@@ -153,6 +153,22 @@ class SearchBuilder
     {
         $this->parameters['scroll'] = '1';
         return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getParameters(): array
+    {
+        return $this->parameters;
+    }
+
+    /**
+     * @return string
+     */
+    public function getEndpoint(): string
+    {
+        return $this->endpoint;
     }
 
     /**

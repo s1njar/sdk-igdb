@@ -41,7 +41,7 @@ class RequestBuilder
     {
         $response = $this->get($searchBuilder);
         
-        return $this->response->setResponse($response);
+        return $this->response->setResponseInterface($response);
     }
 
     /**
