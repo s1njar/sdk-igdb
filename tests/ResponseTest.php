@@ -25,6 +25,8 @@ class ResponseTest extends TestCase
      */
     public function getWithException()
     {
+        $subject = $this->getSubject();
+
         $body = [
             'status' => '200',
             'message' => 'No such Entity'
@@ -39,6 +41,10 @@ class ResponseTest extends TestCase
 
         $this->expectException(BadResponseException::class);
         $this->expectExceptionMessage($exceptionMessage);
+
+        $subject->setResponse($this->responseInterfaceMock);
+        $subject->get();
+
     }
 
     /**
@@ -46,11 +52,11 @@ class ResponseTest extends TestCase
      */
     public function getSingle()
     {
-        $body = [
-            [
-                'id' => '1',
-                'name' => 'witcher'
-            ]
+        $subject = $this->getSubject();
+
+        $body[] = (object) [
+            'id' => '1',
+            'name' => 'witcher'
         ];
 
         $this->responseInterfaceMock
@@ -58,9 +64,9 @@ class ResponseTest extends TestCase
             ->method('getBody')
             ->willReturn(json_encode($body));
 
-        $result = $this->getSubject()->get();
-
-        $this->assertEquals($body, $result[0]);
+        $subject->setResponse($this->responseInterfaceMock);
+        $result = $subject->get();
+        $this->assertEquals($body[0], $result);
     }
 
     /**
@@ -68,15 +74,15 @@ class ResponseTest extends TestCase
      */
     public function getMultiple()
     {
-        $body = [
-            [
-                'id' => '1',
-                'name' => 'witcher'
-            ],
-            [
-                'id' => '2',
-                'name' => 'fallout'
-            ]
+        $subject = $this->getSubject();
+
+        $body[] = (object) [
+            'id' => '1',
+            'name' => 'witcher'
+        ];
+        $body[] = (object) [
+            'id' => '2',
+            'name' => 'fallout'
         ];
 
         $this->responseInterfaceMock
@@ -84,7 +90,8 @@ class ResponseTest extends TestCase
             ->method('getBody')
             ->willReturn(json_encode($body));
 
-        $result = $this->getSubject()->get();
+        $subject->setResponse($this->responseInterfaceMock);
+        $result = $subject->get();
 
         $this->assertEquals($body, $result);
     }

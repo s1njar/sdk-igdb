@@ -36,6 +36,7 @@ class SearchBuilderTest extends TestCase
      */
     public function search()
     {
+        $subject = $this->getSubject();
         $endpoint = 'games';
 
         $parameters = [
@@ -43,6 +44,8 @@ class SearchBuilderTest extends TestCase
         ];
 
         $finalUrl = 'https://api-endpoint.igdb.com/games/?filter[rating][eq]=75';
+
+        $subject->addEndpoint($endpoint);
 
         $this->searchBuilderMock
             ->expects($this->at(0))
@@ -65,7 +68,7 @@ class SearchBuilderTest extends TestCase
             ->with($this->searchBuilderMock)
             ->willReturn($this->responseMock);
 
-        $result = $this->getSubject()->search();
+        $result = $subject->search();
 
         $this->assertEquals($this->responseMock, $result);
         $this->assertEquals($this->searchBuilderMock->getUrl(), $finalUrl);
