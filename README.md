@@ -22,7 +22,6 @@ or add the following line to your composer.json and run composer update:
 ```bash
 composer update
 ```
-
 ## Usage
 
 **Note** the parameters (url, key, endpoint, fields) are required.
@@ -54,23 +53,8 @@ $searchBuilder = $searchBuilder->addOrder('popularity:desc');
 //Trigger the search. It returns an Response object.
 $searchBuilder = $searchBuilder->search();
 
-//Decode the response from the server and returns an array of objects.
+//Decode the response from the server and return an array of objects.
 $response = $searchBuilder->get();
-```
-
-**Sample Response:**
-
-```php
-[
-    0 => {
-        'id' => '1',
-        'name' => 'Witcher'
-    },
-    1 => {
-        'id' => '2',
-        'name' => 'Fallout'
-    }
-]
 ```
 
 **Request by id.**
@@ -83,6 +67,21 @@ $searchBuilder = new SearchBuilder($apiKey);
 $response = $searchBuilder
     ->addEndpoint('games')
     ->searchById(1)
+    ->get();
+```
+
+**Request by search**
+
+```php
+//Create new SearchBuilder object.
+$searchBuilder = new SearchBuilder($apiKey);
+
+//Add endpoint, fields and search needle.
+$response = $searchBuilder
+    ->addEndpoint('games')
+    ->addFields(['id'])
+    ->addSearch('witcher')
+    ->search()
     ->get();
 ```
 
@@ -107,9 +106,24 @@ $response = $searchBuilder
     ->clear()
     ->searchByScroll($nextPage[0]);
 ```
-## Format of returned data
+## Format of response
 
-The data is returned in Json format and converted to a PHP object.
+The data is returned in Json format and converted to an array of PHP objects.
+
+**Sample Response:**
+
+```php
+[
+    0 => {
+        'id' => '1',
+        'name' => 'Witcher'
+    },
+    1 => {
+        'id' => '2',
+        'name' => 'Fallout'
+    }
+]
+```
 
 ## Run Unit Test
 
