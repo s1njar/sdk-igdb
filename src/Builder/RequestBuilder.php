@@ -3,7 +3,9 @@
 namespace Jschubert\Igdb\Builder;
 
 use GuzzleHttp\Exception\ConnectException;
+use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Exception\RequestException;
+use Jschubert\Igdb\Exception\BadResponseException;
 use Jschubert\Igdb\Response\Response;
 use GuzzleHttp\Client;
 use Jschubert\Igdb\Builder\SearchBuilder;
@@ -35,19 +37,19 @@ class RequestBuilder
     /**
      * @param \Jschubert\Igdb\Builder\SearchBuilder $searchBuilder
      * @return \Jschubert\Igdb\Response\Response
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \Jschubert\Igdb\Exception\BadResponseException
      */
     public function build(SearchBuilder $searchBuilder): Response
     {
         $response = $this->get($searchBuilder);
         
-        return $this->response->setResponseInterface($response);
+        return $this->response->setResponse($response);
     }
 
     /**
      * @param \Jschubert\Igdb\Builder\SearchBuilder $searchBuilder
      * @return \Psr\Http\Message\ResponseInterface
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \Jschubert\Igdb\Exception\BadResponseException
      */
     private function get(SearchBuilder $searchBuilder): ResponseInterface
     {
@@ -63,7 +65,11 @@ class RequestBuilder
                 ]
             );
         } catch (ConnectException $connectException){
+            throw  new BadResponseException($connectException->getMessage());
         } catch (RequestException $requestException){
+            throw  new BadResponseException($requestException->getMessage());
+        }catch (GuzzleException $guzzleException){
+            throw  new BadResponseException($guzzleException->getMessage());
         }
 
         return $response;

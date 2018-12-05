@@ -8,7 +8,7 @@ use Psr\Http\Message\ResponseInterface;
 class Response
 {
     /** @var ResponseInterface */
-    private $responseInterface;
+    private $response;
 
     /**
      * @return array|mixed
@@ -16,7 +16,7 @@ class Response
      */
     public function get()
     {
-        $result = json_decode($this->responseInterface->getBody());
+        $result = json_decode($this->response->getBody());
 
         if (isset($result->status)) {
             $message = 'Error ' . $result->status . ' ' . $result->message;
@@ -31,20 +31,20 @@ class Response
     }
 
     /**
-     * @param ResponseInterface $responseInterface
+     * @param ResponseInterface $response
      * @return \Jschubert\Igdb\Response\Response
      */
-    public function setResponseInterface(ResponseInterface $responseInterface): Response
+    public function setResponse(ResponseInterface $response): Response
     {
-        $this->responseInterface = $responseInterface;
+        $this->response = $response;
         return $this;
     }
 
     /**
      * @return ResponseInterface
      */
-    public function getResponseInterface(): ResponseInterface
+    public function getResponse(): ResponseInterface
     {
-        return $this->responseInterface;
+        return $this->response;
     }
 }

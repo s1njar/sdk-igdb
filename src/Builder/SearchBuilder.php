@@ -21,7 +21,7 @@ class SearchBuilder
     private $url;
 
     /** @var string */
-    private $endpoint;
+    private $endpoint = '';
 
     /** @var array */
     private $parameters = [];
@@ -40,7 +40,7 @@ class SearchBuilder
 
     /**
      * @return Response
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \Jschubert\Igdb\Exception\BadResponseException
      */
     public function search(): Response
     {
@@ -53,7 +53,7 @@ class SearchBuilder
     /**
      * @param string $id
      * @return Response
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \Jschubert\Igdb\Exception\BadResponseException
      */
     public function searchById(string $id): Response
     {
@@ -65,7 +65,7 @@ class SearchBuilder
     /**
      * @param string $nextPage
      * @return Response
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \Jschubert\Igdb\Exception\BadResponseException
      */
     public function searchByScroll(string $nextPage): Response
     {
@@ -152,6 +152,17 @@ class SearchBuilder
     public function addScroll(): SearchBuilder
     {
         $this->parameters['scroll'] = '1';
+        return $this;
+    }
+
+    /**
+     * @return $this
+     */
+    public function clear(): SearchBuilder
+    {
+        $this->endpoint = '';
+        $this->parameters = [];
+
         return $this;
     }
 
