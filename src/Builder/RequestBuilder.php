@@ -35,6 +35,7 @@ class RequestBuilder
     }
 
     /**
+     * Takes SearchBuilder object and returns a Response object.
      * @param \Jschubert\Igdb\Builder\SearchBuilder $searchBuilder
      * @return \Jschubert\Igdb\Response\Response
      * @throws \Jschubert\Igdb\Exception\BadResponseException
@@ -47,6 +48,8 @@ class RequestBuilder
     }
 
     /**
+     * Takes data from SearchBuilder and creates a request to igdb api.
+     * If something went wrong a BadResponseException will thrown with specified exception message.
      * @param \Jschubert\Igdb\Builder\SearchBuilder $searchBuilder
      * @return \Psr\Http\Message\ResponseInterface
      * @throws \Jschubert\Igdb\Exception\BadResponseException

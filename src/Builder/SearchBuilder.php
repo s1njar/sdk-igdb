@@ -39,6 +39,7 @@ class SearchBuilder
     }
 
     /**
+     * Builds url and searchs by instance criteria.
      * @return Response
      * @throws \Jschubert\Igdb\Exception\BadResponseException
      */
@@ -51,6 +52,7 @@ class SearchBuilder
     }
 
     /**
+     * Builds url and searchs by id.
      * @param string $id
      * @return Response
      * @throws \Jschubert\Igdb\Exception\BadResponseException
@@ -63,6 +65,7 @@ class SearchBuilder
     }
 
     /**
+     * Builds url and searchs by scroll.
      * @param string $nextPage
      * @return Response
      * @throws \Jschubert\Igdb\Exception\BadResponseException
@@ -75,6 +78,7 @@ class SearchBuilder
     }
 
     /**
+     * Adds endpoint to search criteria.
      * @param string $endpoint
      * @return $this
      */
@@ -85,6 +89,7 @@ class SearchBuilder
     }
 
     /**
+     * Adds search needle to search criteria.
      * @param string $search
      * @return $this
      */
@@ -95,6 +100,7 @@ class SearchBuilder
     }
 
     /**
+     * Adds fields to search criteria.
      * @param array $fields
      * @return $this
      */
@@ -105,6 +111,7 @@ class SearchBuilder
     }
 
     /**
+     * Adds filter to search criteria.
      * @param string $field
      * @param string $token
      * @param string $filter
@@ -117,6 +124,7 @@ class SearchBuilder
     }
 
     /**
+     * Adds order to search criteria.
      * @param string $order
      * @return $this
      */
@@ -127,6 +135,7 @@ class SearchBuilder
     }
 
     /**
+     * Adds limit to search criteria.
      * @param string $limit
      * @return $this
      */
@@ -137,6 +146,7 @@ class SearchBuilder
     }
 
     /**
+     * Adds offset to search criteria.
      * @param string $offset
      * @return $this
      */
@@ -147,6 +157,7 @@ class SearchBuilder
     }
 
     /**
+     * Adds scroll to search criteria.
      * @return $this
      */
     public function addScroll(): SearchBuilder
@@ -156,6 +167,7 @@ class SearchBuilder
     }
 
     /**
+     * Clears all search criterias.
      * @return $this
      */
     public function clear(): SearchBuilder

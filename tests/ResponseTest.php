@@ -109,7 +109,7 @@ class ResponseTest extends TestCase
     /**
      * @return \Jschubert\Igdb\Response\Response
      */
-    public function getSubject(): Response
+    private function getSubject(): Response
     {
         return new Response();
     }

@@ -137,15 +137,10 @@ $ phpunit
 
 - [Get IGDB Account credentials](https://api.igdb.com/)
 
-
-## Contributing
-
-Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
-
 ## Credits
 
 - [Janis Schubert](https://twitter.com/Janis_Schubert)
 
 ## License
 
-The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
+The MIT License (MIT).

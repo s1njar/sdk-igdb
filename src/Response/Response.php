@@ -11,6 +11,7 @@ class Response
     private $response;
 
     /**
+     * Takes body of response and return it, if there are no error code.
      * @return array|mixed
      * @throws \Exception
      */
@@ -31,6 +32,7 @@ class Response
     }
 
     /**
+     * Sets response and returns Response object.
      * @param ResponseInterface $response
      * @return \Jschubert\Igdb\Response\Response
      */
