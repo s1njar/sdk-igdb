@@ -12,15 +12,7 @@ account at (https://api.igdb.com/).
 
 Run composer to require this package:
 ```bash
-composer require jschubert/igdb
-```
-or add the following line to your composer.json and run composer update:
-
-```bash
-"jschubert/igdb": "~1.0"
-```
-```bash
-composer update
+composer require jschubert/igdb:@dev
 ```
 ## Usage
 
