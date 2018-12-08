@@ -13,11 +13,15 @@ class Response
     /**
      * Takes body of response and return it, if there are no error code.
      * @return array|mixed
-     * @throws \Exception
+     * @throws \Jschubert\Igdb\Exception\BadResponseException
      */
     public function get()
     {
         $result = json_decode($this->response->getBody());
+
+        if (empty($result)) {
+            throw new BadResponseException('No such entity. The result is empty.');
+        }
 
         if (isset($result->status)) {
             $message = 'Error ' . $result->status . ' ' . $result->message;
@@ -27,7 +31,7 @@ class Response
         if (isset($result[1])) {
             return $result;
         }
-
+        var_dump($result);die();
         return $result[0];
     }
 

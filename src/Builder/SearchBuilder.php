@@ -18,6 +18,9 @@ class SearchBuilder
     private $apiKey;
 
     /** @var string */
+    private $originalUrl;
+
+    /** @var string */
     private $url;
 
     /** @var string */
@@ -35,6 +38,7 @@ class SearchBuilder
     {
         $this->apiKey = $apiKey;
         $this->url = $url;
+        $this->originalUrl = $url;
         $this->requestBuilder = new RequestBuilder();
     }
 
@@ -172,6 +176,7 @@ class SearchBuilder
      */
     public function clear(): SearchBuilder
     {
+        $this->url = $this->originalUrl;
         $this->endpoint = '';
         $this->parameters = [];
 

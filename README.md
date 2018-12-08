@@ -16,7 +16,7 @@ composer require jschubert/igdb:@dev
 ```
 ## Usage
 
-**Note** the parameters (url, key, endpoint, fields) are required.
+**Note** the parameters (url, key, endpoint) are required.
 
 **Default Workflow:**
 
