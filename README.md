@@ -8,6 +8,8 @@ It contains a query builder where you can add search criteria.
 You must have an IGDB account in order to use the API. You can register a new 
 account at (https://api.igdb.com/).
 
+Project: (https://gitlab.com/jschubert/igdb/)
+
 ## Installation
 
 Run composer to require this package:
