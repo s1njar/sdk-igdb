@@ -24,17 +24,17 @@ class SearchBuilder
     private $url;
 
     /** @var string */
-    private $endpoint = '';
+    private $endpoint = 'games';
 
-    /** @var array */
-    private $parameters = [];
+    /** @var string */
+    private $body;
 
     /**
      * SearchBuilder constructor.
      * @param string $apiKey
      * @param string $url
      */
-    public function __construct(string $apiKey, string $url = 'https://api-endpoint.igdb.com')
+    public function __construct(string $apiKey, string $url = 'https://api-v3.igdb.com')
     {
         $this->apiKey = $apiKey;
         $this->url = $url;
@@ -49,34 +49,21 @@ class SearchBuilder
      */
     public function search(): Response
     {
-        $baseUrl = rtrim($this->getUrl(), '/') . '/' . $this->getEndpoint() . '/';
-        $this->url = $baseUrl . (strpos($baseUrl, '?') === false ? '?' : '') . http_build_query($this->getParameters());
-
         return $this->requestBuilder->build($this);
     }
 
     /**
      * Builds url and searchs by id.
      * @param string $id
+     * @param array $fields
      * @return Response
      * @throws \Jschubert\Igdb\Exception\BadResponseException
      */
-    public function searchById(string $id): Response
+    public function searchById(string $id, array $fields = ['*']): Response
     {
-        $this->url = rtrim($this->getUrl(), '/').'/'.$this->getEndpoint().'/'.$id;
-
-        return $this->requestBuilder->build($this);
-    }
-
-    /**
-     * Builds url and searchs by scroll.
-     * @param string $nextPage
-     * @return Response
-     * @throws \Jschubert\Igdb\Exception\BadResponseException
-     */
-    public function searchByScroll(string $nextPage): Response
-    {
-        $this->url = $this->getUrl() . $nextPage;
+        $this->body = '';
+        $this->addFields($fields);
+        $this->addFilter('id', '=', $id);
 
         return $this->requestBuilder->build($this);
     }
@@ -89,6 +76,7 @@ class SearchBuilder
     public function addEndpoint(string $endpoint): SearchBuilder
     {
         $this->endpoint = $endpoint;
+        $this->url = rtrim($this->getUrl(), '/').'/'.$this->getEndpoint();
         return $this;
     }
 
@@ -99,7 +87,7 @@ class SearchBuilder
      */
     public function addSearch(string $search): SearchBuilder
     {
-        $this->parameters['search'] = $search;
+        $this->body .= "search \"$search\";";
         return $this;
     }
 
@@ -110,31 +98,36 @@ class SearchBuilder
      */
     public function addFields(array $fields): SearchBuilder
     {
-        $this->parameters['fields'] = implode(',', $fields);
+        $this->body .= 'fields ' . implode(',', $fields)  . ';';
         return $this;
     }
 
     /**
      * Adds filter to search criteria.
+     * Note param filter can be string or array (In case of multiple values).
      * @param string $field
      * @param string $token
-     * @param string $filter
+     * @param $filter
      * @return $this
      */
-    public function addFilter(string $field, string $token, string $filter): SearchBuilder
+    public function addFilter(string $field, string $token, $filter): SearchBuilder
     {
-        $this->parameters["filter[$field][$token]"] = $filter;
+        if (\is_array($filter)) {
+            $filter = '(' . implode(',', $filter) . ')';
+        }
+        $this->body .= "where $field $token $filter;";
         return $this;
     }
 
     /**
      * Adds order to search criteria.
-     * @param string $order
+     * @param string $field
+     * @param string $orderDirection
      * @return $this
      */
-    public function addOrder(string $order): SearchBuilder
+    public function addOrder(string $field, string $orderDirection = 'desc'): SearchBuilder
     {
-        $this->parameters['order'] = $order;
+        $this->body .= "sort $field $orderDirection;";
         return $this;
     }
 
@@ -145,7 +138,7 @@ class SearchBuilder
      */
     public function addLimit(string $limit): SearchBuilder
     {
-        $this->parameters['limit'] = $limit;
+        $this->body .= "limit $limit;";
         return $this;
     }
 
@@ -156,17 +149,7 @@ class SearchBuilder
      */
     public function addOffset(string $offset): SearchBuilder
     {
-        $this->parameters['offset'] = $offset;
-        return $this;
-    }
-
-    /**
-     * Adds scroll to search criteria.
-     * @return $this
-     */
-    public function addScroll(): SearchBuilder
-    {
-        $this->parameters['scroll'] = '1';
+        $this->body .= "offset $offset;";
         return $this;
     }
 
@@ -178,17 +161,8 @@ class SearchBuilder
     {
         $this->url = $this->originalUrl;
         $this->endpoint = '';
-        $this->parameters = [];
-
+        $this->body = '';
         return $this;
-    }
-
-    /**
-     * @return array
-     */
-    public function getParameters(): array
-    {
-        return $this->parameters;
     }
 
     /**
@@ -213,5 +187,13 @@ class SearchBuilder
     public function getUrl(): string
     {
         return $this->url;
+    }
+
+    /**
+     * @return string
+     */
+    public function getBody(): string
+    {
+        return $this->body;
     }
 }

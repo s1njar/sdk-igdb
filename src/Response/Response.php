@@ -31,7 +31,6 @@ class Response
         if (isset($result[1])) {
             return $result;
         }
-        var_dump($result);die();
         return $result[0];
     }
 

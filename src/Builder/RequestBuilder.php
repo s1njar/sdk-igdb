@@ -17,8 +17,6 @@ use Psr\Http\Message\ResponseInterface;
  */
 class RequestBuilder
 {
-    const REQUEST_METHOD = 'GET';
-
     /** @var \GuzzleHttp\Client */
     private $httpClient;
 
@@ -57,14 +55,13 @@ class RequestBuilder
     private function get(SearchBuilder $searchBuilder): ResponseInterface
     {
         try {
-            $response = $this->httpClient->request(
-                self::REQUEST_METHOD,
+            $response = $this->httpClient->post(
                 $searchBuilder->getUrl(),
                 [
                     'headers' => [
-                        'user-key' => $searchBuilder->getApiKey(),
-                        'Accept' => 'application/json'
-                    ]
+                        'user-key' => $searchBuilder->getApiKey()
+                    ],
+                    'body' => $searchBuilder->getBody()
                 ]
             );
         } catch (ConnectException $connectException){
