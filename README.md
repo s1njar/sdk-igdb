@@ -14,11 +14,11 @@ Project: (https://gitlab.com/jschubert/igdb/)
 
 Run composer to require this package:
 ```bash
-composer require jschubert/igdb:@dev
+composer require jschubert/igdb:@2.0.0
 ```
 ## Usage
 
-**Note** the parameters (url, key, endpoint) are required.
+**Note** the parameters (url, apikey, endpoint) are required.
 
 **Default Workflow:**
 
@@ -33,7 +33,10 @@ $searchBuilder = $searchBuilder->addEndpoint('games');
 $searchBuilder = $searchBuilder->addFields(['id', 'name']);
 
 //Add multiple filters to refine the search.
-$searchBuilder = $searchBuilder->addFilter('rating', 'eq', '75');
+$searchBuilder = $searchBuilder->addFilter('rating', '=', '75');
+
+//Add multiple filters to refine multi filter search.
+$searchBuilder = $searchBuilder->addFilter('platforms', '=', (1,2,3));
 
 //Add a limit.
 $searchBuilder = $searchBuilder->addLimit('10');
@@ -41,8 +44,8 @@ $searchBuilder = $searchBuilder->addLimit('10');
 //Add an offset.
 $searchBuilder = $searchBuilder->addOffset('0');
 
-//Add an order. (field:direction => popularity:desc)
-$searchBuilder = $searchBuilder->addOrder('popularity:desc');
+//Add an order.
+$searchBuilder = $searchBuilder->addOrder('popularity', 'desc');
 
 //Trigger the search. It returns an Response object.
 $searchBuilder = $searchBuilder->search();
@@ -60,7 +63,7 @@ $searchBuilder = new SearchBuilder($apiKey);
 //Add endpoint and search by id.
 $response = $searchBuilder
     ->addEndpoint('games')
-    ->searchById(1)
+    ->searchById(1, ['name', 'id'])
     ->get();
 ```
 
@@ -79,27 +82,6 @@ $response = $searchBuilder
     ->get();
 ```
 
-**Request by scroll.**
-
-```php
-//Create new SearchBuilder object.
-$searchBuilder = new SearchBuilder($apiKey);
-
-//Create search and add scroll parameter.
-$response = $searchBuilder
-    ->addEndpoint('games')
-    ->addFields(['id'])
-    ->addScroll()
-    ->search();
-
-//Get header url for next scroll page.
-$nextPage = $response->getResponse()->getHeader('X-Next-Page');
-
-//Clear old criteria parameter and search by scroll.
-$response = $searchBuilder
-    ->clear()
-    ->searchByScroll($nextPage[0]);
-```
 ## Format of response
 
 The data is returned in Json format and converted to an array of PHP objects.
