@@ -14,7 +14,7 @@ Project: (https://gitlab.com/jschubert/igdb/)
 
 Run composer to require this package:
 ```bash
-composer require jschubert/igdb:@2.0.0
+composer require jschubert/igdb:v2.0.0
 ```
 ## Usage
 
