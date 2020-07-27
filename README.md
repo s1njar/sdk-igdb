@@ -115,7 +115,7 @@ $ phpunit
 
 ## Credits
 
-- [Janis Schubert](https://twitter.com/Janis_Schubert)
+- [s1njar](https://twitter.com/s1njar)
 
 ## License
 
