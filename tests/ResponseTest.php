@@ -2,8 +2,8 @@
 
 namespace Tests;
 
-use Jschubert\Igdb\Exception\BadResponseException;
-use Jschubert\Igdb\Response\Response;
+use S1njar\Igdb\Exception\BadResponseException;
+use S1njar\Igdb\Response\Response;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -107,7 +107,7 @@ class ResponseTest extends TestCase
     }
 
     /**
-     * @return \Jschubert\Igdb\Response\Response
+     * @return \S1njar\Igdb\Response\Response
      */
     private function getSubject(): Response
     {

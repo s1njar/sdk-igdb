@@ -1,8 +1,8 @@
 <?php
 
-namespace Jschubert\Igdb\Response;
+namespace S1njar\Igdb\Response;
 
-use Jschubert\Igdb\Exception\BadResponseException;
+use S1njar\Igdb\Exception\BadResponseException;
 use Psr\Http\Message\ResponseInterface;
 
 class Response
@@ -13,7 +13,7 @@ class Response
     /**
      * Takes body of response and return it, if there are no error code.
      * @return array|mixed
-     * @throws \Jschubert\Igdb\Exception\BadResponseException
+     * @throws \S1njar\Igdb\Exception\BadResponseException
      */
     public function get()
     {
@@ -37,7 +37,7 @@ class Response
     /**
      * Sets response and returns Response object.
      * @param ResponseInterface $response
-     * @return \Jschubert\Igdb\Response\Response
+     * @return \S1njar\Igdb\Response\Response
      */
     public function setResponse(ResponseInterface $response): Response
     {

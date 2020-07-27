@@ -1,13 +1,13 @@
 <?php
 
-namespace Jschubert\Igdb\Builder;
+namespace S1njar\Igdb\Builder;
 
-use Jschubert\Igdb\Builder\RequestBuilder;
-use Jschubert\Igdb\Response\Response;
+use S1njar\Igdb\Builder\RequestBuilder;
+use S1njar\Igdb\Response\Response;
 
 /**
  * Class SearchBuilder
- * @package Jschubert\Igdb
+ * @package S1njar\Igdb
  */
 class SearchBuilder
 {
@@ -45,7 +45,7 @@ class SearchBuilder
     /**
      * Builds url and searchs by instance criteria.
      * @return Response
-     * @throws \Jschubert\Igdb\Exception\BadResponseException
+     * @throws \S1njar\Igdb\Exception\BadResponseException
      */
     public function search(): Response
     {
@@ -57,7 +57,7 @@ class SearchBuilder
      * @param string $id
      * @param array $fields
      * @return Response
-     * @throws \Jschubert\Igdb\Exception\BadResponseException
+     * @throws \S1njar\Igdb\Exception\BadResponseException
      */
     public function searchById(string $id, array $fields = ['*']): Response
     {

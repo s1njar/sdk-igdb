@@ -1,12 +1,12 @@
 <?php
 
-namespace Jschubert\Igdb\Exception;
+namespace S1njar\Igdb\Exception;
 
 use Throwable;
 
 /**
  * Class BadResponseException
- * @package Jschubert\Igdb\Exception
+ * @package S1njar\Igdb\Exception
  */
 class BadResponseException extends \Exception
 {
