@@ -1,6 +1,6 @@
 <?php
 
-use Jschubert\Igdb\Builder\SearchBuilder;
+use S1njar\Igdb\Builder\SearchBuilder;
 
 require_once __DIR__ . '/vendor/autoload.php';
 

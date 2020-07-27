@@ -1,26 +1,26 @@
 <?php
 
-namespace Jschubert\Igdb\Builder;
+namespace S1njar\Igdb\Builder;
 
 use GuzzleHttp\Exception\ConnectException;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Exception\RequestException;
-use Jschubert\Igdb\Exception\BadResponseException;
-use Jschubert\Igdb\Response\Response;
+use S1njar\Igdb\Exception\BadResponseException;
+use S1njar\Igdb\Response\Response;
 use GuzzleHttp\Client;
-use Jschubert\Igdb\Builder\SearchBuilder;
+use S1njar\Igdb\Builder\SearchBuilder;
 use Psr\Http\Message\ResponseInterface;
 
 /**
  * Class RequestBuilder
- * @package Jschubert\Igdb
+ * @package S1njar\Igdb
  */
 class RequestBuilder
 {
     /** @var \GuzzleHttp\Client */
     private $httpClient;
 
-    /** @var \Jschubert\Igdb\Response\Response */
+    /** @var \S1njar\Igdb\Response\Response */
     private $response;
 
     /**
@@ -34,9 +34,9 @@ class RequestBuilder
 
     /**
      * Takes SearchBuilder object and returns a Response object.
-     * @param \Jschubert\Igdb\Builder\SearchBuilder $searchBuilder
-     * @return \Jschubert\Igdb\Response\Response
-     * @throws \Jschubert\Igdb\Exception\BadResponseException
+     * @param \S1njar\Igdb\Builder\SearchBuilder $searchBuilder
+     * @return \S1njar\Igdb\Response\Response
+     * @throws \S1njar\Igdb\Exception\BadResponseException
      */
     public function build(SearchBuilder $searchBuilder): Response
     {
@@ -48,9 +48,9 @@ class RequestBuilder
     /**
      * Takes data from SearchBuilder and creates a request to igdb api.
      * If something went wrong a BadResponseException will thrown with specified exception message.
-     * @param \Jschubert\Igdb\Builder\SearchBuilder $searchBuilder
+     * @param \S1njar\Igdb\Builder\SearchBuilder $searchBuilder
      * @return \Psr\Http\Message\ResponseInterface
-     * @throws \Jschubert\Igdb\Exception\BadResponseException
+     * @throws \S1njar\Igdb\Exception\BadResponseException
      */
     private function get(SearchBuilder $searchBuilder): ResponseInterface
     {

@@ -8,13 +8,13 @@ It contains a query builder where you can add search criteria.
 You must have an IGDB account in order to use the API. You can register a new 
 account at (https://api.igdb.com/).
 
-Project: (https://gitlab.com/jschubert/igdb/)
+Project: (https://gitlab.com/s1njar/igdb/)
 
 ## Installation
 
 Run composer to require this package:
 ```bash
-composer require jschubert/igdb:v2.0.0
+composer require s1njar/igdb
 ```
 ## Usage
 

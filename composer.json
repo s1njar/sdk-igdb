@@ -1,18 +1,18 @@
 {
-    "name": "jschubert/igdb",
+    "name": "s1njar/igdb",
     "description": "PHP api wrapper for igdb.",
-    "keywords": ["gaming", "igdb", "api", "jschubert"],
+    "keywords": ["gaming", "igdb", "api", "s1njar"],
     "license": "MIT",
     "minimum-stability": "dev",
     "authors": [
         {
-            "name": "Janis Schubert",
-            "email": "jschubert.dev@gmail.com"
+            "name": "s1njar",
+            "email": "s1njar.mail@gmail.com"
         }
     ],
     "autoload": {
         "psr-4": {
-            "Jschubert\\Igdb\\": "src/"
+            "S1njar\\Igdb\\": "src/"
         }
     },
     "autoload-dev": {
@@ -21,8 +21,8 @@
         }
     },
     "require": {
-        "php": ">=7.0.0",
-        "guzzlehttp/guzzle": "^6.3@dev"
+        "php": ">=7.3",
+        "guzzlehttp/guzzle": "^7.1@dev"
     },
     "require-dev": {
         "phpunit/phpunit": "^7"
